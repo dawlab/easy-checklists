@@ -11,6 +11,7 @@ import SnapKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var itemsArray = ["Learn Swift", "Buy a milk", "Send a message"]
+    let defaults = UserDefaults.standard
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -35,6 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        itemsArray = defaults.array(forKey: "ToDoListArray") as! [String]
         layout()
     }
     
@@ -81,8 +83,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func fetchTask(taskName: String) {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            itemsArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            tableView.endUpdates()
+        }
+    }
+    
+    
+    func addNewTask(taskName: String) {
         itemsArray.append(taskName)
+        
+        defaults.set(itemsArray, forKey: "ToDoListArray")
+        
         taskList.reloadData()
     }
     
@@ -107,7 +128,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let task = textField.text {
-            fetchTask(taskName: task)
+            addNewTask(taskName: task)
         } else {
             print("Type something")
         }
