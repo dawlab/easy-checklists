@@ -9,9 +9,23 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    
-    var itemsArray = ["Learn Swift", "Buy a milk", "Send a message"]
+        
+    var itemsArray = [
+        "Call the bank",
+        "Make a shopping list",
+        "Clean up in the room",
+        "Buy dog food",
+        "Register to a doctor",
+        "Plan your weekend",
+        "Make a list of books to read",
+        "Make a list of movies to watch",
+        "Order supplements",
+        "Do a workout",
+        "Buy a gift for Mom"
+    ]
+
     let defaults = UserDefaults.standard
+    
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -32,31 +46,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         return taskList
     }()
-
+    
+    private lazy var box: UIView = {
+        let box = UIView()
+        
+        return box
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        itemsArray = defaults.array(forKey: "ToDoListArray") as! [String]
+        
+        if defaults.array(forKey: "taskList")?.isEmpty == false {
+            itemsArray = defaults.array(forKey: "taskList") as! [String]
+        }
+        
         layout()
     }
     
     private func layout() {
         
+        view.addSubview(box)
+        box.snp.makeConstraints { (make) -> Void in
+            make.left.equalTo(view)
+            make.right.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            }
+
         view.addSubview(textField)
-        textField.snp.makeConstraints { (maker) in
-            maker.width.equalTo(380)
-            maker.height.equalTo(50)
-            maker.centerX.equalToSuperview()
-            maker.centerY.equalToSuperview().offset(-320)
+        textField.snp.makeConstraints { (make) in
+            make.width.equalTo(380)
+            make.height.equalTo(50)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.centerX.equalToSuperview()
         }
         
         view.addSubview(taskList)
-        taskList.snp.makeConstraints { (maker) in
-            maker.width.equalTo(400)
-            maker.height.equalTo(500)
-            maker.top.equalTo(textField.snp.bottom).offset(20)
-            maker.bottom.equalToSuperview()
-            maker.centerX.equalToSuperview()
+        taskList.snp.makeConstraints { (make) in
+            make.width.equalTo(400)
+            make.height.equalTo(700)
+            
+            make.top.equalTo(textField.snp.bottom)
+            
 
         }
         
@@ -94,6 +126,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             itemsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
+            defaults.set(itemsArray, forKey: "taskList")
+            
             tableView.endUpdates()
         }
     }
@@ -102,7 +136,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func addNewTask(taskName: String) {
         itemsArray.append(taskName)
         
-        defaults.set(itemsArray, forKey: "ToDoListArray")
+        defaults.set(itemsArray, forKey: "taskList")
         
         taskList.reloadData()
     }
