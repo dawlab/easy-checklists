@@ -13,6 +13,7 @@
 		BD970BB929252CD600D2F23A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD970BB829252CD600D2F23A /* Assets.xcassets */; };
 		BD970BBC29252CD600D2F23A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD970BBA29252CD600D2F23A /* LaunchScreen.storyboard */; };
 		BD970BCA29261C5A00D2F23A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD970BC929261C5A00D2F23A /* SnapKit */; };
+		BD970BF8292EB40D00D2F23A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD970BF7292EB40D00D2F23A /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		BD970BB829252CD600D2F23A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD970BBB29252CD600D2F23A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD970BBD29252CD600D2F23A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD970BF7292EB40D00D2F23A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		BD970BA029252CD400D2F23A = {
 			isa = PBXGroup;
 			children = (
+				BD970BF7292EB40D00D2F23A /* .gitignore */,
 				BD970BAB29252CD400D2F23A /* ToDoList */,
 				BD970BAA29252CD400D2F23A /* Products */,
 			);
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD970BBC29252CD600D2F23A /* LaunchScreen.storyboard in Resources */,
+				BD970BF8292EB40D00D2F23A /* .gitignore in Resources */,
 				BD970BB929252CD600D2F23A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
