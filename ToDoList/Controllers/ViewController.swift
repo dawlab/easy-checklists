@@ -23,11 +23,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textField.delegate = self
         return textField
     }()
-    private lazy var taskList: UITableView = {
-        let taskList = UITableView()
-        taskList.delegate = self
-        taskList.dataSource = self
-        return taskList
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(CustomTableViewCell.self,
+                           forCellReuseIdentifier: CustomTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
     }()
     private lazy var box: UIView = {
         let box = UIView()
@@ -54,29 +56,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.centerX.equalToSuperview()
         }
-        view.addSubview(taskList)
-        taskList.snp.makeConstraints { (make) in
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
             make.width.equalTo(380)
             make.height.equalTo(700)
             make.top.equalTo(textField.snp.bottom)
+            make.centerX.equalToSuperview()
         }
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsArray.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "TaskCell")
-        let task = itemsArray[indexPath.row]
-        let itemTitle = itemsArray.reversed()[indexPath.row].title
-        cell.textLabel?.text = itemTitle
-        cell.accessoryType = task.done ? .checkmark : .none
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
-        saveItems()
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return itemsArray.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(text: itemsArray.reversed()[indexPath.row].title)
+            cell.completedStatus(done: itemsArray[indexPath.row].done)
+            
+            return cell
+        }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
+            saveItems()
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    
+    /*
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
@@ -90,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             saveItems()
             tableView.endUpdates()
         }
-    }
+    }*/
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.placeholder = "Type task title here.."
         textField.endEditing(true)
@@ -115,7 +122,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         textField.text = ""
     }
-    func saveItems() {
+     func saveItems() {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(itemsArray)
@@ -123,7 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
             print("Error encoding item array, \(error)")
         }
-        taskList.reloadData()
+        tableView.reloadData()
     }
     func loadItems() {
         if let data = try? Data(contentsOf: dataFilePath!) {

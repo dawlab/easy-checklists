@@ -15,6 +15,7 @@
 		BD970BCA29261C5A00D2F23A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD970BC929261C5A00D2F23A /* SnapKit */; };
 		BD970BF8292EB40D00D2F23A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD970BF7292EB40D00D2F23A /* .gitignore */; };
 		BD970BFA292EBB1200D2F23A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BF9292EBB1200D2F23A /* Task.swift */; };
+		BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		BD970BBD29252CD600D2F23A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD970BF7292EB40D00D2F23A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD970BF9292EBB1200D2F23A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				BD970BFB292EBB4200D2F23A /* Data Model */,
 				BD970BAC29252CD400D2F23A /* AppDelegate.swift */,
 				BD970BAE29252CD400D2F23A /* SceneDelegate.swift */,
+				BD970C2D293299F100D2F23A /* View */,
 				BD970BFC292EBB4C00D2F23A /* Controllers */,
 				BD970BFD292EBB8100D2F23A /* Supporting files */,
 				BD970BBD29252CD600D2F23A /* Info.plist */,
@@ -94,6 +97,14 @@
 				BD970BBA29252CD600D2F23A /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		BD970C2D293299F100D2F23A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +196,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -195,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD970BFA292EBB1200D2F23A /* Task.swift in Sources */,
+				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
 				BD970BB129252CD400D2F23A /* ViewController.swift in Sources */,
 				BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */,
 				BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */,
