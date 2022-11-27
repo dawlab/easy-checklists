@@ -64,40 +64,52 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             make.centerX.equalToSuperview()
         }
     }
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return itemsArray.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
+            return UITableViewCell()
         }
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
-                return UITableViewCell()
-            }
-            cell.configure(text: itemsArray.reversed()[indexPath.row].title)
-            cell.completedStatus(done: itemsArray[indexPath.row].done)
-            
-            return cell
+        cell.taskTitle.text = itemsArray[indexPath.row].title
+        
+        if itemsArray[indexPath.row].done == true {
+            cell.completed.isSelected = true
+            cell.taskTitle.textColor = .gray
+        } else {
+            cell.completed.isSelected = false
+            cell.taskTitle.textColor = .black
         }
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
-            saveItems()
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-    
-    /*
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
+        
+        cell.completed.addTarget(self, action: #selector((tapCompletedButton(sender:))), for: .touchUpInside)
+        cell.delete.addTarget(self, action: #selector((tapDeleteButton(sender:))), for: .touchUpInside)
+        return cell
     }
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            itemsArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            saveItems()
-            tableView.endUpdates()
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    @objc func tapCompletedButton(sender: UIButton) {
+        if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
+            if let indexPath = tableView.indexPath(for: cell) {
+                itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
+                saveItems()
+            }
         }
-    }*/
+    }
+    
+    @objc func tapDeleteButton(sender: UIButton) {
+        if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
+            if let indexPath = tableView.indexPath(for: cell) {
+                itemsArray.remove(at: indexPath.row)
+                saveItems()
+            }
+        }
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.placeholder = "Type task title here.."
         textField.endEditing(true)
@@ -122,7 +134,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         textField.text = ""
     }
-     func saveItems() {
+    func saveItems() {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(itemsArray)
