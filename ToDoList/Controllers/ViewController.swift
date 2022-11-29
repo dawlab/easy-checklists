@@ -10,10 +10,12 @@ import SnapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var itemsArray = [Task]()
+    
     let dataFilePath = FileManager.default.urls(
         for: .documentDirectory,
         in: .userDomainMask)
         .first?.appendingPathComponent("Items.plist")
+    
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Type task title here.."
@@ -23,6 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         textField.delegate = self
         return textField
     }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CustomTableViewCell.self,
@@ -31,41 +34,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         return tableView
     }()
+    
     private lazy var box: UIView = {
         let box = UIView()
         return box
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         loadItems()
         layout()
     }
+    
     private func layout() {
         view.addSubview(box)
-        box.snp.makeConstraints { (make) -> Void in
+        
+        box.snp.makeConstraints { make -> Void in
             make.left.equalTo(view)
             make.right.equalTo(view)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        
         view.addSubview(textField)
-        textField.snp.makeConstraints { (make) in
+        
+        textField.snp.makeConstraints { make in
             make.width.equalTo(380)
             make.height.equalTo(50)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.centerX.equalToSuperview()
         }
+        
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
+        
+        tableView.snp.makeConstraints { make in
             make.width.equalTo(380)
             make.height.equalTo(700)
             make.top.equalTo(textField.snp.bottom)
             make.centerX.equalToSuperview()
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsArray.count
+         itemsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,6 +96,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         cell.completed.addTarget(self, action: #selector((tapCompletedButton(sender:))), for: .touchUpInside)
+        
         cell.delete.addTarget(self, action: #selector((tapDeleteButton(sender:))), for: .touchUpInside)
         return cell
     }
@@ -91,7 +104,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     
     @objc func tapCompletedButton(sender: UIButton) {
         if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
@@ -110,11 +122,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.placeholder = "Type task title here.."
         textField.endEditing(true)
         return true
     }
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
             return true
@@ -123,6 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return false
         }
     }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let task = textField.text {
             let newTask = Task()
@@ -134,6 +149,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         textField.text = ""
     }
+    
     func saveItems() {
         let encoder = PropertyListEncoder()
         do {
@@ -144,6 +160,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         tableView.reloadData()
     }
+    
     func loadItems() {
         if let data = try? Data(contentsOf: dataFilePath!) {
             let decoder = PropertyListDecoder()

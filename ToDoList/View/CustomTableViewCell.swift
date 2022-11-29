@@ -13,8 +13,8 @@ class CustomTableViewCell: UITableViewCell {
     
     public let completed: UIButton = {
         let completed = UIButton()
-        //completed.setBackgroundImage(UIImage(systemName: "circle"), for: UIControl.State.normal)
         completed.setImage(UIImage(systemName: "circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0)), for: .normal)
+        
         completed.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0)), for: .selected)
         
         return completed
@@ -28,7 +28,9 @@ class CustomTableViewCell: UITableViewCell {
     
     let delete: UIButton = {
         let delete = UIButton()
+        
         delete.setImage(UIImage(systemName: "multiply.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0))?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .normal)
+        
         delete.setImage(UIImage(systemName: "multiply.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0))?.withTintColor(.red, renderingMode: .alwaysOriginal), for: .selected)
         
         return delete
@@ -40,10 +42,9 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     private func layout() {
-        
         contentView.addSubview(completed)
         
-        completed.snp.makeConstraints { (make) in
+        completed.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.height.equalTo(50)
             make.left.equalTo(contentView).offset(-20)
@@ -51,7 +52,7 @@ class CustomTableViewCell: UITableViewCell {
         
         contentView.addSubview(taskTitle)
         
-        taskTitle.snp.makeConstraints { (make) in
+        taskTitle.snp.makeConstraints { make in
             make.height.equalTo(completed)
             make.width.equalTo(contentView)
             make.left.equalTo(completed.snp.right).offset(-20)
@@ -59,7 +60,7 @@ class CustomTableViewCell: UITableViewCell {
         
         contentView.addSubview(delete)
         
-        delete.snp.makeConstraints { (make) in
+        delete.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.height.equalTo(50)
             make.right.equalTo(contentView).offset(20)
@@ -71,8 +72,8 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        super.prepareForReuse()
+        super
+            .prepareForReuse()
         taskTitle.text = nil
     }
 }
-
