@@ -63,7 +63,7 @@
 		BD970BAB29252CD400D2F23A /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				BD970BFB292EBB4200D2F23A /* Data Model */,
+				BD970BFB292EBB4200D2F23A /* Model */,
 				BD970BAC29252CD400D2F23A /* AppDelegate.swift */,
 				BD970BAE29252CD400D2F23A /* SceneDelegate.swift */,
 				BD970C2D293299F100D2F23A /* View */,
@@ -74,12 +74,12 @@
 			path = ToDoList;
 			sourceTree = "<group>";
 		};
-		BD970BFB292EBB4200D2F23A /* Data Model */ = {
+		BD970BFB292EBB4200D2F23A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				BD970BF9292EBB1200D2F23A /* Task.swift */,
 			);
-			path = "Data Model";
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BD970BFC292EBB4C00D2F23A /* Controllers */ = {
