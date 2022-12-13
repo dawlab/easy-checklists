@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD970BA929252CD400D2F23A /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD970BA929252CD400D2F23A /* EasyChecklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChecklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD970BAC29252CD400D2F23A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD970BAE29252CD400D2F23A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BD970BB029252CD400D2F23A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				BD970BF7292EB40D00D2F23A /* .gitignore */,
-				BD970BAB29252CD400D2F23A /* ToDoList */,
+				BD970BAB29252CD400D2F23A /* EasyChecklists */,
 				BD970BAA29252CD400D2F23A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,12 +55,12 @@
 		BD970BAA29252CD400D2F23A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD970BA929252CD400D2F23A /* ToDoList.app */,
+				BD970BA929252CD400D2F23A /* EasyChecklists.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BD970BAB29252CD400D2F23A /* ToDoList */ = {
+		BD970BAB29252CD400D2F23A /* EasyChecklists */ = {
 			isa = PBXGroup;
 			children = (
 				BD970BFB292EBB4200D2F23A /* Model */,
@@ -71,7 +71,7 @@
 				BD970BFD292EBB8100D2F23A /* Supporting files */,
 				BD970BBD29252CD600D2F23A /* Info.plist */,
 			);
-			path = ToDoList;
+			path = EasyChecklists;
 			sourceTree = "<group>";
 		};
 		BD970BFB292EBB4200D2F23A /* Model */ = {
@@ -110,9 +110,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD970BA829252CD400D2F23A /* ToDoList */ = {
+		BD970BA829252CD400D2F23A /* EasyChecklists */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD970BC029252CD600D2F23A /* Build configuration list for PBXNativeTarget "ToDoList" */;
+			buildConfigurationList = BD970BC029252CD600D2F23A /* Build configuration list for PBXNativeTarget "EasyChecklists" */;
 			buildPhases = (
 				BD970BA529252CD400D2F23A /* Sources */,
 				BD970BA629252CD400D2F23A /* Frameworks */,
@@ -123,12 +123,12 @@
 			);
 			dependencies = (
 			);
-			name = ToDoList;
+			name = EasyChecklists;
 			packageProductDependencies = (
 				BD970BC929261C5A00D2F23A /* SnapKit */,
 			);
 			productName = ToDoList;
-			productReference = BD970BA929252CD400D2F23A /* ToDoList.app */;
+			productReference = BD970BA929252CD400D2F23A /* EasyChecklists.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -146,7 +146,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD970BA429252CD400D2F23A /* Build configuration list for PBXProject "ToDoList" */;
+			buildConfigurationList = BD970BA429252CD400D2F23A /* Build configuration list for PBXProject "EasyChecklists" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -162,7 +162,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD970BA829252CD400D2F23A /* ToDoList */,
+				BD970BA829252CD400D2F23A /* EasyChecklists */,
 			);
 		};
 /* End PBXProject section */
@@ -398,7 +398,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD970BA429252CD400D2F23A /* Build configuration list for PBXProject "ToDoList" */ = {
+		BD970BA429252CD400D2F23A /* Build configuration list for PBXProject "EasyChecklists" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD970BBE29252CD600D2F23A /* Debug */,
@@ -407,7 +407,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD970BC029252CD600D2F23A /* Build configuration list for PBXNativeTarget "ToDoList" */ = {
+		BD970BC029252CD600D2F23A /* Build configuration list for PBXNativeTarget "EasyChecklists" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD970BC129252CD600D2F23A /* Debug */,
