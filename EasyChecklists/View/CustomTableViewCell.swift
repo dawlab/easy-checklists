@@ -54,7 +54,7 @@ class CustomTableViewCell: UITableViewCell {
         
         taskTitle.snp.makeConstraints { make in
             make.height.equalTo(completed)
-            make.width.equalTo(contentView)
+            make.width.equalTo(250)
             make.left.equalTo(completed.snp.right).offset(-20)
         }
         

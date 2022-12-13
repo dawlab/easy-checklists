@@ -10,6 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var itemsArray = [Task]()
+    let customView = CustomView()
     
     let dataFilePath = FileManager.default.urls(
         for: .documentDirectory,
@@ -69,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(380)
+            make.width.equalTo(410)
             make.height.equalTo(700)
             make.top.equalTo(textField.snp.bottom)
             make.centerX.equalToSuperview()
@@ -84,8 +85,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else {
             return UITableViewCell()
         }
-        
+        tableView.rowHeight = 50
         cell.taskTitle.text = itemsArray[indexPath.row].title
+        
+        cell.taskTitle.numberOfLines = 0
+        cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         if itemsArray[indexPath.row].done == true {
             cell.completed.isSelected = true
@@ -108,6 +112,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @objc func tapCompletedButton(sender: UIButton) {
         if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
             if let indexPath = tableView.indexPath(for: cell) {
+                if itemsArray[indexPath.row].done == false {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                }
                 itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
                 saveItems()
             }
@@ -121,6 +128,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 saveItems()
             }
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.placeholder = ""
+        
+        view.addSubview(customView)
+        
+        customView.isHidden = false
+        
+        customView.snp.makeConstraints { make in
+            make.width.equalTo(380)
+            make.height.equalTo(30)
+            make.top.equalTo(textField.snp.bottom)
+            make.centerX.equalToSuperview().offset(5)
+        }
+        tableView.snp.removeConstraints()
+        tableView.snp.makeConstraints { make in
+            make.width.equalTo(380)
+            make.height.equalTo(700)
+            make.top.equalTo(customView.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -148,6 +178,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("Type something")
         }
         textField.text = ""
+        
+        customView.isHidden = true
+        
+        tableView.snp.removeConstraints()
+        
+        tableView.snp.makeConstraints { make in
+            make.width.equalTo(380)
+            make.height.equalTo(700)
+            make.top.equalTo(textField.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    // Max length UITextField
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let MAX_LENGTH = 48
+        let updatedString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        return updatedString.count <= MAX_LENGTH
     }
     
     func saveItems() {
