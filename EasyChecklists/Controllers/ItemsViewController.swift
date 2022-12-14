@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var itemsArray = [Task]()
     let customView = CustomView()
     
@@ -44,6 +44,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.title = "My checklist"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(tapDeleteListButton(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
+        
         loadItems()
         layout()
     }
@@ -71,9 +75,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(700)
-            make.top.equalTo(textField.snp.bottom)
+            make.height.equalTo(650)
+            make.top.equalTo(textField.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
+            make.left.equalToSuperview()
         }
     }
     
@@ -130,6 +135,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObjTemp = itemsArray[sourceIndexPath.row]
+        itemsArray.remove(at: sourceIndexPath.row)
+        itemsArray.insert(movedObjTemp, at: destinationIndexPath.row)
+        saveItems()
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    @objc func tapEditButton(sender: UIBarButtonItem) {
+        tableView.isEditing = !tableView.isEditing
+        sender.title = (tableView.isEditing) ? "Done" : "Edit"
+    }
+    
+    @objc func tapDeleteListButton(sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Usuń",
+                                      message: "Czy chcesz usunąć wszystkie elementy na tej liście?",
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Tak, usuwam", style: UIAlertAction.Style.default, handler: {
+            action in
+            self.itemsArray.removeAll()
+            self.saveItems()
+        }))
+        alert.addAction(UIAlertAction(title: "Anuluj", style: UIAlertAction.Style.default, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = ""
         
@@ -145,9 +185,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         tableView.snp.removeConstraints()
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(380)
-            make.height.equalTo(700)
-            make.top.equalTo(customView.snp.bottom)
+            make.width.equalTo(410)
+            make.height.equalTo(620)
+            make.top.equalTo(customView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
         
@@ -159,21 +199,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return true
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != "" {
-            return true
-        } else {
-            textField.placeholder = "Type something!"
-            return false
-        }
-    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool { true }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let task = textField.text {
-            let newTask = Task()
-            newTask.title = task
-            itemsArray.append(newTask)
-            saveItems()
+        if textField.text != "" {
+            if let task = textField.text {
+                let newTask = Task()
+                newTask.title = task
+                itemsArray.append(newTask)
+                saveItems()
+            }
         } else {
             print("Type something")
         }
@@ -184,9 +219,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.snp.removeConstraints()
         
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(380)
-            make.height.equalTo(700)
-            make.top.equalTo(textField.snp.bottom)
+            make.width.equalTo(410)
+            make.height.equalTo(650)
+            make.top.equalTo(textField.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
         }
     }
@@ -220,3 +255,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 }
+

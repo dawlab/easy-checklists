@@ -10,13 +10,16 @@
 		BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD48199E2948D95B001C8AEF /* CustomView.swift */; };
 		BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAC29252CD400D2F23A /* AppDelegate.swift */; };
 		BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAE29252CD400D2F23A /* SceneDelegate.swift */; };
-		BD970BB129252CD400D2F23A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BB029252CD400D2F23A /* ViewController.swift */; };
+		BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BB029252CD400D2F23A /* ItemsViewController.swift */; };
 		BD970BB929252CD600D2F23A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD970BB829252CD600D2F23A /* Assets.xcassets */; };
 		BD970BBC29252CD600D2F23A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD970BBA29252CD600D2F23A /* LaunchScreen.storyboard */; };
 		BD970BCA29261C5A00D2F23A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD970BC929261C5A00D2F23A /* SnapKit */; };
 		BD970BF8292EB40D00D2F23A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD970BF7292EB40D00D2F23A /* .gitignore */; };
 		BD970BFA292EBB1200D2F23A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BF9292EBB1200D2F23A /* Task.swift */; };
 		BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */; };
+		BDBA896D29492FB100B6A625 /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896C29492FB100B6A625 /* ListsViewController.swift */; };
+		BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896E29492FC300B6A625 /* SettingsViewController.swift */; };
+		BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA897029492FFD00B6A625 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,13 +27,16 @@
 		BD970BA929252CD400D2F23A /* EasyChecklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChecklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD970BAC29252CD400D2F23A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD970BAE29252CD400D2F23A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BD970BB029252CD400D2F23A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BD970BB029252CD400D2F23A /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		BD970BB829252CD600D2F23A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD970BBB29252CD600D2F23A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD970BBD29252CD600D2F23A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD970BF7292EB40D00D2F23A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD970BF9292EBB1200D2F23A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		BDBA896C29492FB100B6A625 /* ListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
+		BDBA896E29492FC300B6A625 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BDBA897029492FFD00B6A625 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +93,10 @@
 		BD970BFC292EBB4C00D2F23A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BD970BB029252CD400D2F23A /* ViewController.swift */,
+				BDBA897029492FFD00B6A625 /* TabBarViewController.swift */,
+				BD970BB029252CD400D2F23A /* ItemsViewController.swift */,
+				BDBA896C29492FB100B6A625 /* ListsViewController.swift */,
+				BDBA896E29492FC300B6A625 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -208,12 +217,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDBA896D29492FB100B6A625 /* ListsViewController.swift in Sources */,
 				BD970BFA292EBB1200D2F23A /* Task.swift in Sources */,
 				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
-				BD970BB129252CD400D2F23A /* ViewController.swift in Sources */,
+				BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */,
+				BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */,
 				BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */,
 				BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */,
 				BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */,
+				BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
