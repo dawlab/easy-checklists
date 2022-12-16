@@ -17,7 +17,7 @@
 		BD970BF8292EB40D00D2F23A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD970BF7292EB40D00D2F23A /* .gitignore */; };
 		BD970BFA292EBB1200D2F23A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BF9292EBB1200D2F23A /* Task.swift */; };
 		BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */; };
-		BDBA896D29492FB100B6A625 /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896C29492FB100B6A625 /* ListsViewController.swift */; };
+		BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896C29492FB100B6A625 /* CategoryViewController.swift */; };
 		BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896E29492FC300B6A625 /* SettingsViewController.swift */; };
 		BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA897029492FFD00B6A625 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -34,7 +34,7 @@
 		BD970BF7292EB40D00D2F23A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD970BF9292EBB1200D2F23A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		BDBA896C29492FB100B6A625 /* ListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
+		BDBA896C29492FB100B6A625 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		BDBA896E29492FC300B6A625 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BDBA897029492FFD00B6A625 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,7 +95,7 @@
 			children = (
 				BDBA897029492FFD00B6A625 /* TabBarViewController.swift */,
 				BD970BB029252CD400D2F23A /* ItemsViewController.swift */,
-				BDBA896C29492FB100B6A625 /* ListsViewController.swift */,
+				BDBA896C29492FB100B6A625 /* CategoryViewController.swift */,
 				BDBA896E29492FC300B6A625 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
@@ -217,7 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDBA896D29492FB100B6A625 /* ListsViewController.swift in Sources */,
+				BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */,
 				BD970BFA292EBB1200D2F23A /* Task.swift in Sources */,
 				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
 				BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */,

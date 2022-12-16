@@ -11,6 +11,7 @@ import SnapKit
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var itemsArray = [Task]()
     let customView = CustomView()
+    var changedTextField: UITextField?
     
     let dataFilePath = FileManager.default.urls(
         for: .documentDirectory,
@@ -47,7 +48,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationItem.title = "My checklist"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(tapDeleteListButton(sender: )))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
-        
+
         loadItems()
         layout()
     }
@@ -75,7 +76,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(650)
+            make.height.equalTo(600)
             make.top.equalTo(textField.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
             make.left.equalToSuperview()
@@ -91,8 +92,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return UITableViewCell()
         }
         tableView.rowHeight = 50
+        //tableView.allowsSelection = false
         cell.taskTitle.text = itemsArray[indexPath.row].title
-        
         cell.taskTitle.numberOfLines = 0
         cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
@@ -111,7 +112,29 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedItem = itemsArray[indexPath.row].title
+        let alert = UIAlertController(title: "Edit", message: "Edit item", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Update",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {_ in
+            let updatedItem = self.changedTextField?.text
+            self.itemsArray[indexPath.row].title = updatedItem!
+            self.saveItems()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+
+        alert.addTextField { textField in
+            self.changedTextField = textField
+            self.changedTextField?.placeholder = "Please update item"
+            self.changedTextField?.text = selectedItem
+        }
+
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func tapCompletedButton(sender: UIButton) {
@@ -160,8 +183,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                       message: "Czy chcesz usunąć wszystkie elementy na tej liście?",
                                       preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Tak, usuwam", style: UIAlertAction.Style.default, handler: {
-            action in
+        alert.addAction(UIAlertAction(title: "Tak, usuwam",
+                                      style: UIAlertAction.Style.default,
+                                      handler: { action in
             self.itemsArray.removeAll()
             self.saveItems()
         }))
@@ -186,7 +210,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.snp.removeConstraints()
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(620)
+            make.height.equalTo(580)
             make.top.equalTo(customView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
@@ -220,7 +244,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(650)
+            make.height.equalTo(600)
             make.top.equalTo(textField.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
         }
@@ -255,4 +279,3 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 }
-

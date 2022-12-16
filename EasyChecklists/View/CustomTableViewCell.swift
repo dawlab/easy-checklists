@@ -22,7 +22,7 @@ class CustomTableViewCell: UITableViewCell {
     
     let taskTitle: UILabel = {
         let taskTitle = UILabel()
-        
+
         return taskTitle
     }()
     
