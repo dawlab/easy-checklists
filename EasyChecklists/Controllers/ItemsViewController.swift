@@ -66,7 +66,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         view.addSubview(textField)
         
         textField.snp.makeConstraints { make in
-            make.width.equalTo(380)
             make.height.equalTo(50)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(5)
@@ -76,7 +75,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(410)
             make.top.equalTo(textField.snp.bottom).offset(12)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
@@ -214,7 +212,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         tableView.snp.removeConstraints()
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(410)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(customView.snp.bottom).offset(5)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
@@ -239,8 +236,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 itemsArray.append(newTask)
                 saveItems()
             }
-        } else {
-            print("Type something")
         }
         textField.text = ""
         
@@ -249,7 +244,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.snp.removeConstraints()
         
         tableView.snp.makeConstraints { make in
-            make.width.equalTo(410)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(textField.snp.bottom).offset(12)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
