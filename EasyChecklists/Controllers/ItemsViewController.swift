@@ -69,17 +69,18 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             make.width.equalTo(380)
             make.height.equalTo(50)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.centerX.equalToSuperview()
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(5)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-5)
         }
         
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(600)
             make.top.equalTo(textField.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
-            make.left.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
     }
     
@@ -92,10 +93,13 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return UITableViewCell()
         }
         tableView.rowHeight = 50
-        //tableView.allowsSelection = false
         cell.taskTitle.text = itemsArray[indexPath.row].title
         cell.taskTitle.numberOfLines = 0
         cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .white
+        cell.selectedBackgroundView = backgroundView
         
         if itemsArray[indexPath.row].done == true {
             cell.completed.isSelected = true
@@ -132,6 +136,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.changedTextField = textField
             self.changedTextField?.placeholder = "Please update item"
             self.changedTextField?.text = selectedItem
+            
         }
 
         self.present(alert, animated: true, completion: nil)
@@ -185,7 +190,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         alert.addAction(UIAlertAction(title: "Tak, usuwam",
                                       style: UIAlertAction.Style.default,
-                                      handler: { action in
+                                      handler: {_ in
             self.itemsArray.removeAll()
             self.saveItems()
         }))
@@ -210,9 +215,10 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.snp.removeConstraints()
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(580)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(customView.snp.bottom).offset(5)
-            make.centerX.equalToSuperview()
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
         
     }
@@ -244,9 +250,10 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.snp.makeConstraints { make in
             make.width.equalTo(410)
-            make.height.equalTo(600)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.top.equalTo(textField.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
     }
     
