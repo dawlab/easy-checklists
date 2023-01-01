@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD2463CC295B7BBE00B9771F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463CB295B7BBE00B9771F /* CollectionViewCell.swift */; };
+		BD2463CE295C7C2500B9771F /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463CD295C7C2500B9771F /* AddListViewController.swift */; };
+		BD2463D429620A1E00B9771F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463D329620A1E00B9771F /* Data.swift */; };
 		BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD48199E2948D95B001C8AEF /* CustomView.swift */; };
+		BD4987122954808100B356B5 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD4987102954808000B356B5 /* DataModel.xcdatamodeld */; };
 		BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAC29252CD400D2F23A /* AppDelegate.swift */; };
 		BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAE29252CD400D2F23A /* SceneDelegate.swift */; };
 		BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BB029252CD400D2F23A /* ItemsViewController.swift */; };
@@ -15,15 +19,21 @@
 		BD970BBC29252CD600D2F23A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD970BBA29252CD600D2F23A /* LaunchScreen.storyboard */; };
 		BD970BCA29261C5A00D2F23A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD970BC929261C5A00D2F23A /* SnapKit */; };
 		BD970BF8292EB40D00D2F23A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BD970BF7292EB40D00D2F23A /* .gitignore */; };
-		BD970BFA292EBB1200D2F23A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BF9292EBB1200D2F23A /* Task.swift */; };
 		BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */; };
 		BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896C29492FB100B6A625 /* CategoryViewController.swift */; };
 		BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA896E29492FC300B6A625 /* SettingsViewController.swift */; };
 		BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBA897029492FFD00B6A625 /* TabBarViewController.swift */; };
+		BDEE06E12955EA8900362F4B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEE06E02955EA8900362F4B /* CategoryTableViewCell.swift */; };
+		BDEE06E4295B462500362F4B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BDEE06E3295B462500362F4B /* Realm */; };
+		BDEE06E6295B462500362F4B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDEE06E5295B462500362F4B /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD2463CB295B7BBE00B9771F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		BD2463CD295C7C2500B9771F /* AddListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
+		BD2463D329620A1E00B9771F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		BD48199E2948D95B001C8AEF /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		BD4987112954808100B356B5 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		BD970BA929252CD400D2F23A /* EasyChecklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChecklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD970BAC29252CD400D2F23A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD970BAE29252CD400D2F23A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,11 +42,11 @@
 		BD970BBB29252CD600D2F23A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD970BBD29252CD600D2F23A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD970BF7292EB40D00D2F23A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		BD970BF9292EBB1200D2F23A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		BDBA896C29492FB100B6A625 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		BDBA896E29492FC300B6A625 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BDBA897029492FFD00B6A625 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		BDEE06E02955EA8900362F4B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDEE06E6295B462500362F4B /* RealmSwift in Frameworks */,
+				BDEE06E4295B462500362F4B /* Realm in Frameworks */,
 				BD970BCA29261C5A00D2F23A /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,7 +83,7 @@
 		BD970BAB29252CD400D2F23A /* EasyChecklists */ = {
 			isa = PBXGroup;
 			children = (
-				BD970BFB292EBB4200D2F23A /* Model */,
+				BD970BFB292EBB4200D2F23A /* Data Model */,
 				BD970BAC29252CD400D2F23A /* AppDelegate.swift */,
 				BD970BAE29252CD400D2F23A /* SceneDelegate.swift */,
 				BD970C2D293299F100D2F23A /* View */,
@@ -82,12 +94,13 @@
 			path = EasyChecklists;
 			sourceTree = "<group>";
 		};
-		BD970BFB292EBB4200D2F23A /* Model */ = {
+		BD970BFB292EBB4200D2F23A /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				BD970BF9292EBB1200D2F23A /* Task.swift */,
+				BD4987102954808000B356B5 /* DataModel.xcdatamodeld */,
+				BD2463D329620A1E00B9771F /* Data.swift */,
 			);
-			path = Model;
+			path = "Data Model";
 			sourceTree = "<group>";
 		};
 		BD970BFC292EBB4C00D2F23A /* Controllers */ = {
@@ -97,6 +110,7 @@
 				BD970BB029252CD400D2F23A /* ItemsViewController.swift */,
 				BDBA896C29492FB100B6A625 /* CategoryViewController.swift */,
 				BDBA896E29492FC300B6A625 /* SettingsViewController.swift */,
+				BD2463CD295C7C2500B9771F /* AddListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -115,6 +129,8 @@
 			children = (
 				BD970C2B293299EC00D2F23A /* CustomTableViewCell.swift */,
 				BD48199E2948D95B001C8AEF /* CustomView.swift */,
+				BDEE06E02955EA8900362F4B /* CategoryTableViewCell.swift */,
+				BD2463CB295B7BBE00B9771F /* CollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -138,6 +154,8 @@
 			name = EasyChecklists;
 			packageProductDependencies = (
 				BD970BC929261C5A00D2F23A /* SnapKit */,
+				BDEE06E3295B462500362F4B /* Realm */,
+				BDEE06E5295B462500362F4B /* RealmSwift */,
 			);
 			productName = ToDoList;
 			productReference = BD970BA929252CD400D2F23A /* EasyChecklists.app */;
@@ -169,6 +187,7 @@
 			mainGroup = BD970BA029252CD400D2F23A;
 			packageReferences = (
 				BD970BC829261C5A00D2F23A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				BDEE06E2295B462500362F4B /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = BD970BAA29252CD400D2F23A /* Products */;
 			projectDirPath = "";
@@ -218,11 +237,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */,
-				BD970BFA292EBB1200D2F23A /* Task.swift in Sources */,
+				BD4987122954808100B356B5 /* DataModel.xcdatamodeld in Sources */,
 				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
 				BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */,
 				BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */,
+				BDEE06E12955EA8900362F4B /* CategoryTableViewCell.swift in Sources */,
+				BD2463CE295C7C2500B9771F /* AddListViewController.swift in Sources */,
 				BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */,
+				BD2463D429620A1E00B9771F /* Data.swift in Sources */,
+				BD2463CC295B7BBE00B9771F /* CollectionViewCell.swift in Sources */,
 				BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */,
 				BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */,
 				BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */,
@@ -443,6 +466,14 @@
 				kind = branch;
 			};
 		};
+		BDEE06E2295B462500362F4B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.33.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -451,7 +482,30 @@
 			package = BD970BC829261C5A00D2F23A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
+		BDEE06E3295B462500362F4B /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDEE06E2295B462500362F4B /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BDEE06E5295B462500362F4B /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDEE06E2295B462500362F4B /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		BD4987102954808000B356B5 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD4987112954808100B356B5 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = BD4987112954808100B356B5 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BD970BA129252CD400D2F23A /* Project object */;
 }

@@ -15,8 +15,8 @@ class TabBarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let checklistsTab = UINavigationController(rootViewController: ItemsViewController())
+
+        let checklistsTab = UINavigationController(rootViewController: CategoryViewController())
     
         let checklistsTabItem = UITabBarItem(title: "All checklists", image: UIImage(systemName: "checklist"), selectedImage: UIImage(systemName: "checklist.checked"))
         

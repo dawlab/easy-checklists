@@ -7,16 +7,18 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var itemsArray = [Task]()
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
     let customView = CustomView()
     var changedTextField: UITextField?
-    
-    let dataFilePath = FileManager.default.urls(
-        for: .documentDirectory,
-        in: .userDomainMask)
-        .first?.appendingPathComponent("Items.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -45,11 +47,11 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "My checklist"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(tapDeleteListButton(sender: )))
+        navigationItem.title = selectedCategory?.name
+        navigationItem.backButtonTitle = "Back"
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(tapDeleteListButton(sender: )))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
 
-        loadItems()
         layout()
     }
     
@@ -155,6 +157,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func tapDeleteButton(sender: UIButton) {
         if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
             if let indexPath = tableView.indexPath(for: cell) {
+                context.delete(itemsArray[indexPath.row])
                 itemsArray.remove(at: indexPath.row)
                 saveItems()
             }
@@ -231,8 +234,10 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text != "" {
             if let task = textField.text {
-                let newTask = Task()
+                let newTask = Task(context: context)
                 newTask.title = task
+                newTask.done = false
+                newTask.parentCategory = selectedCategory
                 itemsArray.append(newTask)
                 saveItems()
             }
@@ -259,24 +264,26 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func saveItems() {
-        let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(itemsArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         } catch {
-            print("Error encoding item array, \(error)")
+            print("Error saving context, \(error)")
         }
         tableView.reloadData()
     }
     
-    func loadItems() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do {
-                itemsArray = try decoder.decode([Task].self, from: data)
-            } catch {
-                print("Error decoding item array, \(error)")
-            }
+    func loadItems(with request: NSFetchRequest<Task> = Task.fetchRequest()) {
+        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        request.predicate = predicate
+        
+        do {
+          itemsArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context, \(error)")
         }
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
     }
 }
