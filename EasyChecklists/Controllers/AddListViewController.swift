@@ -7,39 +7,40 @@
 
 import UIKit
 import SnapKit
-import CoreData
+import RealmSwift
 
 class AddListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
+    var onViewWillDisappear: (() -> ())?
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            onViewWillDisappear?()
+        }
+   
     private var collectionView: UICollectionView?
-    let colorArray = [UIColor.red, UIColor.green, UIColor.blue]
-    var categories = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var color = UIColor.systemBlue
+    let colorArray = [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "mint",
+        "teal",
+        "cyan",
+        "blue",
+        "indigo",
+        "purple",
+        "pink",
+        "brown"
+    ]
+    // swiftlint:disable:next force_try
+    let realm = try! Realm()
+    var checklists: Results<Checklist>!
+    var color = "blue"
     var categoryName = "Default"
-    let itemsVC = ItemsViewController()
     
     private lazy var box: UIView = {
         let box = UIView()
         return box
-    }()
-    
-    private lazy var cancelButton: UIButton = {
-        let cancelButton = UIButton(type: .system)
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.titleLabel?.tintColor = .systemBlue
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 16)
-        cancelButton.addTarget(self, action: #selector(tapToDismiss), for: .touchUpInside)
-        return cancelButton
-    }()
-    
-    private lazy var doneButton: UIButton = {
-        let doneButton = UIButton(type: .system)
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.titleLabel?.tintColor = .systemBlue
-        doneButton.titleLabel?.font = .systemFont(ofSize: 16)
-        doneButton.addTarget(self, action: #selector(tapToAddCategory), for: .touchUpInside)
-        return doneButton
     }()
     
     private lazy var textField: UITextField = {
@@ -71,18 +72,6 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        view.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints { make in
-            make.left.equalTo(box).offset(10)
-            make.top.equalTo(box.snp.top).offset(10)
-        }
-        
-        view.addSubview(doneButton)
-        doneButton.snp.makeConstraints { make -> Void in
-            make.right.equalTo(box).offset(-10)
-            make.top.equalTo(box.snp.top).offset(10)
-        }
-        
         view.addSubview(textField)
         textField.snp.makeConstraints { make -> Void in
             make.top.equalTo(box.snp.top).offset(40)
@@ -98,7 +87,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView!.snp.makeConstraints { make in
             make.top.equalTo(colorLabel.snp.bottom).offset(10)
             make.width.equalTo(250)
-            make.height.equalTo(40)
+            make.height.equalTo(200)
         }
         
         view.addSubview(iconLabel)
@@ -112,7 +101,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.backgroundColor = .white
         let lt = UICollectionViewFlowLayout()
         lt.scrollDirection = .vertical
-        lt.itemSize = CGSize(width: 40, height: 40)
+        lt.itemSize = CGSize(width: 30, height: 30)
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: lt)
         guard let collectionView = collectionView else {
             return
@@ -120,21 +109,23 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
+        navigationItem.title = "Add new checklist"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tapToDismiss(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tapToAddCategory(sender: )))
         layout()
     }
     
     @objc func tapToDismiss(sender: UIButton!) {
-      dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     @objc func tapToAddCategory(sender: UIButton!) {
-        let newCategory = Category(context: context)
-        newCategory.name = categoryName
-        categories.append(newCategory)
-        saveItems()
-        itemsVC.reloadData()
+        let newCategory = Checklist()
+        newCategory.name = textField.text!
+        newCategory.color = color
+        print(newCategory.color)
+        self.save(category: newCategory)
         dismiss(animated: true, completion: nil)
-//        newCategory.color = String(color)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -143,14 +134,31 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = colorArray[indexPath.row]
+        
+        let colors: [String: UIColor] = [
+            "red": .systemRed,
+            "orange": .systemOrange,
+            "yellow": .systemYellow,
+            "green": .systemGreen,
+            "mint": .systemMint,
+            "teal": .systemTeal,
+            "cyan": .systemCyan,
+            "blue": .systemBlue,
+            "indigo": .systemIndigo,
+            "purple": .systemPurple,
+            "pink": .systemPink,
+            "brown": .systemBrown
+        ]
+        let name = colorArray[indexPath.row]
+        let color = colors[name]
+        cell.backgroundColor = color
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         color = colorArray[indexPath.row]
-        
+        print(color)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -167,9 +175,11 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         textField.text = ""
     }
     
-    func saveItems() {
+    func save(category: Checklist) {
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("Error saving context, \(error)")
         }

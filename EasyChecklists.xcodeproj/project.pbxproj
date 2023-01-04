@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		BD2463CC295B7BBE00B9771F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463CB295B7BBE00B9771F /* CollectionViewCell.swift */; };
 		BD2463CE295C7C2500B9771F /* AddListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463CD295C7C2500B9771F /* AddListViewController.swift */; };
-		BD2463D429620A1E00B9771F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463D329620A1E00B9771F /* Data.swift */; };
+		BD2463DA2963653000B9771F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463D92963653000B9771F /* Task.swift */; };
+		BD2463DC2963654400B9771F /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463DB2963654400B9771F /* Checklist.swift */; };
+		BD24641F296565D100B9771F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24641E296565D100B9771F /* Colors.swift */; };
 		BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD48199E2948D95B001C8AEF /* CustomView.swift */; };
-		BD4987122954808100B356B5 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD4987102954808000B356B5 /* DataModel.xcdatamodeld */; };
 		BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAC29252CD400D2F23A /* AppDelegate.swift */; };
 		BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAE29252CD400D2F23A /* SceneDelegate.swift */; };
 		BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BB029252CD400D2F23A /* ItemsViewController.swift */; };
@@ -31,9 +32,10 @@
 /* Begin PBXFileReference section */
 		BD2463CB295B7BBE00B9771F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		BD2463CD295C7C2500B9771F /* AddListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewController.swift; sourceTree = "<group>"; };
-		BD2463D329620A1E00B9771F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		BD2463D92963653000B9771F /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		BD2463DB2963654400B9771F /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
+		BD24641E296565D100B9771F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		BD48199E2948D95B001C8AEF /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
-		BD4987112954808100B356B5 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		BD970BA929252CD400D2F23A /* EasyChecklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChecklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD970BAC29252CD400D2F23A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD970BAE29252CD400D2F23A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,8 +99,9 @@
 		BD970BFB292EBB4200D2F23A /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				BD4987102954808000B356B5 /* DataModel.xcdatamodeld */,
-				BD2463D329620A1E00B9771F /* Data.swift */,
+				BD2463D92963653000B9771F /* Task.swift */,
+				BD2463DB2963654400B9771F /* Checklist.swift */,
+				BD24641E296565D100B9771F /* Colors.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -237,18 +240,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */,
-				BD4987122954808100B356B5 /* DataModel.xcdatamodeld in Sources */,
 				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
 				BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */,
+				BD24641F296565D100B9771F /* Colors.swift in Sources */,
 				BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */,
 				BDEE06E12955EA8900362F4B /* CategoryTableViewCell.swift in Sources */,
 				BD2463CE295C7C2500B9771F /* AddListViewController.swift in Sources */,
 				BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */,
-				BD2463D429620A1E00B9771F /* Data.swift in Sources */,
+				BD2463DA2963653000B9771F /* Task.swift in Sources */,
 				BD2463CC295B7BBE00B9771F /* CollectionViewCell.swift in Sources */,
 				BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */,
 				BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */,
 				BDBA896F29492FC300B6A625 /* SettingsViewController.swift in Sources */,
+				BD2463DC2963654400B9771F /* Checklist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,19 +497,6 @@
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		BD4987102954808000B356B5 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				BD4987112954808100B356B5 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = BD4987112954808100B356B5 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = BD970BA129252CD400D2F23A /* Project object */;
 }

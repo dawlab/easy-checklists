@@ -10,11 +10,11 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     static let identifier = "CollectionViewCell"
     
-    let rectangle: UIView = {
-        let rectangle = UIView()
+    var rectangle: UIView = {
+        var rectangle = UIView()
         rectangle.layer.cornerRadius = 15
         rectangle.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        rectangle.backgroundColor = .systemBlue
+        rectangle.backgroundColor = UIColor.systemBlue
         return rectangle
     }()
     
@@ -28,6 +28,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     let imgView: UIImageView = {
         let imgView = UIImageView()
+        imgView.tintColor = .systemGray5
         return imgView
     }()
     

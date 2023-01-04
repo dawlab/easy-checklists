@@ -7,23 +7,27 @@
 
 import UIKit
 import SnapKit
-import CoreData
+import RealmSwift
 
 class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    var categories = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+    // swiftlint:disable:next force_try
+    let realm = try! Realm()
+    var checklists: Results<Checklist>?
+
     let largeConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .large)
     
     private var collectionView: UICollectionView?
     
     private lazy var box: UIView = {
         let box = UIView()
+        box.backgroundColor = .systemGray5
         return box
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCategories()
     
         let lt = UICollectionViewFlowLayout()
         lt.scrollDirection = .vertical
@@ -35,16 +39,20 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        view.backgroundColor = .white
+        collectionView.backgroundColor = .systemGray5
+        view.backgroundColor = .systemGray5
         navigationItem.title = "My checklists"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(tapAddListButton(sender: )))
-
         layout()
-        loadItems()
     }
     
     @objc func tapAddListButton(sender: UIButton) {
-        present(AddListViewController(), animated: true)
+        let addVC = AddListViewController()
+                      addVC.onViewWillDisappear = {
+                          self.collectionView?.reloadData()
+                    }
+                  let navigationController = UINavigationController(rootViewController: addVC)
+        present(navigationController, animated: true)
 //        let alert = UIAlertController(title: "Add new list", message: "Add list", preferredStyle: .alert)
 //        var textField = UITextField()
 //
@@ -57,10 +65,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
 //                                      style: UIAlertAction.Style.default,
 //                                      handler: {_ in
 //            if textField.text != "" {
-//                let newCategory = Category(context: self.context)
-//                newCategory.name = textField.text
-//                self.categories.append(newCategory)
-//                self.saveItems()
+//                let newCategory = Category()
+//                newCategory.name = textField.text!
+//                self.save(category: newCategory )
 //                }
 //            }))
 //
@@ -89,7 +96,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return checklists?.count ?? 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -97,7 +104,30 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.categoryName.text = categories[indexPath.row].name
+        cell.categoryName.text = checklists?[indexPath.row].name
+        
+        let colors: [String: UIColor] = [
+            "red": .systemRed,
+            "orange": .systemOrange,
+            "yellow": .systemYellow,
+            "green": .systemGreen,
+            "mint": .systemMint,
+            "teal": .systemTeal,
+            "cyan": .systemCyan,
+            "blue": .systemBlue,
+            "indigo": .systemIndigo,
+            "purple": .systemPurple,
+            "pink": .systemPink,
+            "brown": .systemBrown
+        ]
+        
+        if let name = checklists?[indexPath.row].color {
+            if let color = colors[name] {
+                cell.rectangle.backgroundColor = color
+            } else {
+                print("color with name:\(name) is unavailable")
+            }
+        }
         cell.imgView.image = UIImage(systemName: "book", withConfiguration: largeConfig)
         
         return cell
@@ -106,26 +136,16 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let destinationVC = ItemsViewController()
 
-        let cat = categories[indexPath.row]
-        destinationVC.selectedCategory = cat
+        let cat = checklists?[indexPath.row]
+//        destinationVC.selectedCategory = cat
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        collectionView!.reloadData()
+    func loadCategories() {
+        checklists = realm.objects(Checklist.self)
     }
-
-    func loadItems() {
-        let request: NSFetchRequest<Category> = Category.fetchRequest()
-        do {
-          categories = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context, \(error)")
-        }
+    
+    func refreshView() {
+        collectionView?.reloadData()
     }
 }
