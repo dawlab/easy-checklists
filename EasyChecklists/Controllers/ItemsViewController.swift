@@ -7,22 +7,30 @@
 
 import UIKit
 import SnapKit
-import CoreData
+import RealmSwift
 
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    var itemsArray = [Task]()
+    
+    var checklistItems: Results<Task>?
+    // swiftlint:disable:next force_try
+    let realm = try! Realm()
+    
     var selectedCategory: Checklist? {
         didSet {
-//            loadItems()
+            loadItems()
         }
     }
     let customView = CustomView()
     var changedTextField: UITextField?
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Type task title here.."
+        textField.textColor = .black
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Type task title here..",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
+        )
+        textField.backgroundColor = .white
         textField.clearsOnBeginEditing = true
         textField.borderStyle = .roundedRect
         textField.adjustsFontSizeToFitWidth = true
@@ -36,6 +44,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                            forCellReuseIdentifier: CustomTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .systemGray6
         return tableView
     }()
 
@@ -46,10 +55,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         navigationItem.title = selectedCategory?.name
-        navigationItem.backButtonTitle = "Back"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(tapDeleteListButton(sender: )))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
 
         layout()
@@ -85,7 +92,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         itemsArray.count
+        checklistItems?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +100,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return UITableViewCell()
         }
         tableView.rowHeight = 50
-        cell.taskTitle.text = itemsArray[indexPath.row].title
+        cell.taskTitle.text = checklistItems?[indexPath.row].title
         cell.taskTitle.numberOfLines = 0
         cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
 
@@ -101,12 +108,16 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         backgroundView.backgroundColor = .white
         cell.selectedBackgroundView = backgroundView
 
-        if itemsArray[indexPath.row].done == true {
+        if checklistItems?[indexPath.row].done == true {
             cell.completed.isSelected = true
-            cell.taskTitle.textColor = .gray
+            cell.taskTitle.textColor = .systemGray
         } else {
             cell.completed.isSelected = false
-            cell.taskTitle.textColor = .black
+            if traitCollection.userInterfaceStyle == .light {
+                cell.taskTitle.textColor = .black
+            } else {
+                cell.taskTitle.textColor = .white
+            }
         }
 
         cell.completed.addTarget(self, action: #selector((tapCompletedButton(sender:))), for: .touchUpInside)
@@ -119,15 +130,21 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let selectedItem = itemsArray[indexPath.row].title
+        let selectedItem = checklistItems?[indexPath.row].title
         let alert = UIAlertController(title: "Edit", message: "Edit item", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Update",
                                       style: UIAlertAction.Style.default,
                                       handler: {_ in
             let updatedItem = self.changedTextField?.text
-            self.itemsArray[indexPath.row].title = updatedItem!
-//            self.saveItems()
+                do {
+                    try self.realm.write {
+                        self.checklistItems?[indexPath.row].title = updatedItem!
+                    }
+                } catch {
+                    print("Error saving done status \(error)")
+                }
+            self.reloadData()
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
@@ -145,11 +162,20 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func tapCompletedButton(sender: UIButton) {
         if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
             if let indexPath = tableView.indexPath(for: cell) {
-                if itemsArray[indexPath.row].done == false {
+                if checklistItems?[indexPath.row].done == false {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
-                itemsArray[indexPath.row].done = !itemsArray[indexPath.row].done
-//                saveItems()
+                
+                if let task = checklistItems?[indexPath.row] {
+                    do {
+                        try realm.write {
+                            task.done = !task.done
+                        }
+                    } catch {
+                        print("Error saving done status \(error)")
+                    }
+                }
+                reloadData()
             }
         }
     }
@@ -157,18 +183,30 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func tapDeleteButton(sender: UIButton) {
         if let superview = sender.superview, let cell = superview.superview as? CustomTableViewCell {
             if let indexPath = tableView.indexPath(for: cell) {
-//                context.delete(itemsArray[indexPath.row])
-                itemsArray.remove(at: indexPath.row)
-//                saveItems()
+                if let task = checklistItems?[indexPath.row] {
+                    do {
+                        try realm.write {
+                            realm.delete(task)
+                        }
+                    } catch {
+                        print("Error deleting an item \(error)")
+                    }
+                }
             }
+            reloadData()
         }
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedObjTemp = itemsArray[sourceIndexPath.row]
-        itemsArray.remove(at: sourceIndexPath.row)
-        itemsArray.insert(movedObjTemp, at: destinationIndexPath.row)
-//        saveItems()
+        if let currentCategory = selectedCategory {
+            do {
+                try realm.write {
+                    currentCategory.tasks.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+                }
+            } catch {
+                print("Error during reordering cells, \(error)")
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -192,7 +230,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         alert.addAction(UIAlertAction(title: "Tak, usuwam",
                                       style: UIAlertAction.Style.default,
                                       handler: {_ in
-            self.itemsArray.removeAll()
+//            self.checklistItems.removeAll()
 //            self.saveItems()
         }))
         alert.addAction(UIAlertAction(title: "Anuluj", style: UIAlertAction.Style.default, handler: nil))
@@ -232,16 +270,22 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool { true }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        if textField.text != "" {
-//            if let task = textField.text {
-//                let newTask = Task(context: context)
-//                newTask.title = task
-//                newTask.done = false
-//                newTask.parentCategory = selectedCategory
-//                itemsArray.append(newTask)
-//                saveItems()
-//            }
-//        }
+        
+        if textField.text != "" {
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newTask = Task()
+                        newTask.title = textField.text!
+                        newTask.done = false
+                        currentCategory.tasks.append(newTask)
+                    }
+                } catch {
+                    print("Error saving new item, \(error)")
+                }
+            }
+        }
+        
         textField.text = ""
 
         customView.isHidden = true
@@ -254,6 +298,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
+        reloadData()
     }
 
     // Max length UITextField
@@ -263,25 +308,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return updatedString.count <= MAX_LENGTH
     }
 
-//    func saveItems() {
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error saving context, \(error)")
-//        }
-//        tableView.reloadData()
-//    }
-//
-//    func loadItems(with request: NSFetchRequest<Task> = Task.fetchRequest()) {
-//        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-//        request.predicate = predicate
-//
-//        do {
-//          itemsArray = try context.fetch(request)
-//        } catch {
-//            print("Error fetching data from context, \(error)")
-//        }
-//    }
+    func loadItems() {
+        checklistItems = selectedCategory?.tasks.sorted(byKeyPath: "id")
+    }
 
     func reloadData() {
         tableView.reloadData()

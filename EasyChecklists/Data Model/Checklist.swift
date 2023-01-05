@@ -12,7 +12,7 @@ import UIKit
 class Checklist: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = "UIColor.systemBlue"
-    @objc dynamic var icon: String = "box"
+    @objc dynamic var icon: String = "doc"
     let tasks = List<Task>()
     
 }

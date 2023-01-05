@@ -21,7 +21,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     private lazy var box: UIView = {
         let box = UIView()
-        box.backgroundColor = .systemGray5
+        box.backgroundColor = .systemGray6
         return box
     }()
     
@@ -39,8 +39,8 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemGray5
-        view.backgroundColor = .systemGray5
+        collectionView.backgroundColor = .systemGray6
+        view.backgroundColor = .systemGray6
         navigationItem.title = "My checklists"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(tapAddListButton(sender: )))
         layout()
@@ -53,26 +53,6 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
                   let navigationController = UINavigationController(rootViewController: addVC)
         present(navigationController, animated: true)
-//        let alert = UIAlertController(title: "Add new list", message: "Add list", preferredStyle: .alert)
-//        var textField = UITextField()
-//
-//        alert.addTextField { field in
-//            textField = field
-//            textField.placeholder = "Please type list title"
-//        }
-//
-//        alert.addAction(UIAlertAction(title: "Add",
-//                                      style: UIAlertAction.Style.default,
-//                                      handler: {_ in
-//            if textField.text != "" {
-//                let newCategory = Category()
-//                newCategory.name = textField.text!
-//                self.save(category: newCategory )
-//                }
-//            }))
-//
-//        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
     }
     
     private func layout() {
@@ -96,7 +76,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return checklists?.count ?? 1
+        return checklists?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,11 +104,10 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         if let name = checklists?[indexPath.row].color {
             if let color = colors[name] {
                 cell.rectangle.backgroundColor = color
-            } else {
-                print("color with name:\(name) is unavailable")
             }
         }
-        cell.imgView.image = UIImage(systemName: "book", withConfiguration: largeConfig)
+        let icon = checklists?[indexPath.row].icon
+        cell.imgView.image = UIImage(systemName: icon ?? "doc", withConfiguration: largeConfig)
         
         return cell
     }
@@ -137,8 +116,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         let destinationVC = ItemsViewController()
 
         let cat = checklists?[indexPath.row]
-//        destinationVC.selectedCategory = cat
+        destinationVC.selectedCategory = cat
         navigationController?.pushViewController(destinationVC, animated: true)
+        navigationItem.backButtonDisplayMode = .minimal
     }
 
     func loadCategories() {

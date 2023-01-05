@@ -22,7 +22,7 @@ class CustomTableViewCell: UITableViewCell {
     
     let taskTitle: UILabel = {
         let taskTitle = UILabel()
-
+        taskTitle.font = .boldSystemFont(ofSize: 16)
         return taskTitle
     }()
     
@@ -38,6 +38,7 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = .systemBackground
         layout()
     }
     

@@ -72,7 +72,7 @@ class CollectionViewCell: UICollectionViewCell {
         categoryName.snp.makeConstraints { make in
             make.top.equalTo(rectangle.snp.bottom)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.left.equalTo(contentView.snp.left).offset(10)
+            make.left.equalTo(contentView.snp.left)
             make.right.equalTo(contentView.snp.right).offset(-10)
         }
     }
@@ -80,7 +80,7 @@ class CollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
-//        contentView.backgroundColor = .systemGray
+        contentView.backgroundColor = .systemGray6
     }
     
     required init?(coder: NSCoder) {
