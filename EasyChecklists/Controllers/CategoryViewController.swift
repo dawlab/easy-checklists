@@ -43,6 +43,12 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.backgroundColor = .systemGray6
         navigationItem.title = "My checklists"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(tapAddListButton(sender: )))
+        
+        if traitCollection.userInterfaceStyle == .light {
+            navigationController?.navigationBar.tintColor = .black
+        } else {
+            navigationController?.navigationBar.tintColor = .white
+        }
         layout()
     }
     
@@ -68,7 +74,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         view.addSubview(collectionView!)
         
         collectionView!.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(12)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(10)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-10)

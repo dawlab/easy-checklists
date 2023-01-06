@@ -20,6 +20,22 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             loadItems()
         }
     }
+    
+    let colors: [String: UIColor] = [
+        "red": .systemRed,
+        "orange": .systemOrange,
+        "yellow": .systemYellow,
+        "green": .systemGreen,
+        "mint": .systemMint,
+        "teal": .systemTeal,
+        "cyan": .systemCyan,
+        "blue": .systemBlue,
+        "indigo": .systemIndigo,
+        "purple": .systemPurple,
+        "pink": .systemPink,
+        "brown": .systemBrown
+    ]
+    
     let customView = CustomView()
     var changedTextField: UITextField?
 
@@ -58,7 +74,14 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         view.backgroundColor = .systemGray6
         navigationItem.title = selectedCategory?.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
+        navigationItem.rightBarButtonItem?.tintColor = .white
 
+        if let name = selectedCategory?.color {
+            let color = colors[name]
+            box.backgroundColor = color
+        } else {
+            box.backgroundColor = .systemGray6
+        }
         layout()
     }
 
@@ -68,7 +91,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         box.snp.makeConstraints { make -> Void in
             make.left.equalTo(view)
             make.right.equalTo(view)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
 
@@ -77,8 +100,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         textField.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(5)
-            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-5)
+            make.left.equalTo(view.snp.left).offset(5)
+            make.right.equalTo(view.snp.right).offset(-5)
         }
 
         view.addSubview(tableView)
@@ -86,8 +109,8 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(12)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
-            make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
         }
     }
 
@@ -103,6 +126,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.taskTitle.text = checklistItems?[indexPath.row].title
         cell.taskTitle.numberOfLines = 0
         cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
+        if let currentCategory = selectedCategory {
+            cell.completed.tintColor = colors[currentCategory.color]
+        }
 
         let backgroundView = UIView()
         backgroundView.backgroundColor = .white
@@ -220,22 +246,6 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func tapEditButton(sender: UIBarButtonItem) {
         tableView.isEditing = !tableView.isEditing
         sender.title = (tableView.isEditing) ? "Done" : "Edit"
-    }
-
-    @objc func tapDeleteListButton(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Usuń",
-                                      message: "Czy chcesz usunąć wszystkie elementy na tej liście?",
-                                      preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "Tak, usuwam",
-                                      style: UIAlertAction.Style.default,
-                                      handler: {_ in
-//            self.checklistItems.removeAll()
-//            self.saveItems()
-        }))
-        alert.addAction(UIAlertAction(title: "Anuluj", style: UIAlertAction.Style.default, handler: nil))
-
-        self.present(alert, animated: true, completion: nil)
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {

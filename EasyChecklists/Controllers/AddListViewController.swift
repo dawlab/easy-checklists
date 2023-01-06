@@ -126,14 +126,15 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(28)
-            make.right.equalTo(box.snp.right).offset(-20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(80)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
             make.width.equalTo(320)
         }
         
         view.addSubview(preview)
         preview.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(20)
-            make.left.equalTo(box.snp.left).offset(20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
             make.height.equalTo(40)
             make.width.equalTo(40)
         }
@@ -141,7 +142,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(imgView)
         imgView.snp.makeConstraints { make in
             make.top.equalTo(box.snp.top).offset(27)
-            make.left.equalTo(box.snp.left).offset(28)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(28)
             make.height.equalTo(25)
             make.width.equalTo(25)
         }
@@ -149,7 +150,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         view.addSubview(colorLabel)
         colorLabel.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(30)
-            make.left.equalTo(box.snp.left).offset(20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
         }
         
         view.addSubview(collectionViewA!)
@@ -158,14 +159,14 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
             make.top.equalTo(colorLabel.snp.bottom).offset(10)
             make.width.equalTo(450)
             make.height.equalTo(100)
-            make.left.equalTo(box.snp.left).offset(20)
-            make.right.equalTo(box.snp.right).offset(-20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
         }
         
         view.addSubview(iconLabel)
         iconLabel.snp.makeConstraints { make -> Void in
             make.top.equalTo(collectionViewA!.snp.bottom).offset(10)
-            make.left.equalTo(box.snp.left).offset(20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
         }
         
         view.addSubview(collectionViewB!)
@@ -174,8 +175,8 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
             make.top.equalTo(iconLabel.snp.bottom).offset(10)
             make.width.equalTo(450)
             make.height.equalTo(100)
-            make.left.equalTo(box.snp.left).offset(20)
-            make.right.equalTo(box.snp.right).offset(-20)
+            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
         }
     }
     

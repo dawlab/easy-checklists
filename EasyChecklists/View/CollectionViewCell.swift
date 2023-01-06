@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CollectionViewCell: UICollectionViewCell {
     static let identifier = "CollectionViewCell"
@@ -64,7 +65,7 @@ class CollectionViewCell: UICollectionViewCell {
         
         imgView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(35)
-            make.left.equalTo(contentView.snp.left).offset(10)
+            make.left.equalTo(contentView.snp.left).offset(16)
         }
         
         contentView.addSubview(categoryName)
@@ -72,7 +73,7 @@ class CollectionViewCell: UICollectionViewCell {
         categoryName.snp.makeConstraints { make in
             make.top.equalTo(rectangle.snp.bottom)
             make.bottom.equalTo(contentView.snp.bottom)
-            make.left.equalTo(contentView.snp.left)
+            make.left.equalTo(contentView.snp.left).offset(5)
             make.right.equalTo(contentView.snp.right).offset(-10)
         }
     }
