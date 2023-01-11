@@ -12,7 +12,8 @@ class CustomView: UIView {
     let customTextField: UITextField = {
         let customTextField = UITextField()
         customTextField.attributedPlaceholder = NSAttributedString(string: "Type task title above.", attributes: [
-            .font: UIFont.systemFont(ofSize: 14)
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: UIColor(.white)
         ])
         customTextField.borderStyle = .none
         customTextField.adjustsFontSizeToFitWidth = true

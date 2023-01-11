@@ -32,7 +32,6 @@
 		BDFE9F52296EC9D100071C5E /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE9F51296EC9D100071C5E /* Strings+Generated.swift */; };
 		BDFE9F54296EF2FE00071C5E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE9F53296EF2FE00071C5E /* Color.swift */; };
 		BDFE9F56296F04A800071C5E /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE9F55296F04A800071C5E /* Icon.swift */; };
-		BDFE9F58296F432500071C5E /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFE9F57296F432500071C5E /* CategoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 		BDFE9F51296EC9D100071C5E /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		BDFE9F53296EF2FE00071C5E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BDFE9F55296F04A800071C5E /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		BDFE9F57296F432500071C5E /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +129,6 @@
 				BDBA896C29492FB100B6A625 /* CategoryViewController.swift */,
 				BDBA896E29492FC300B6A625 /* SettingsViewController.swift */,
 				BD2463CD295C7C2500B9771F /* AddListViewController.swift */,
-				BDFE9F57296F432500071C5E /* CategoryViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -271,7 +268,6 @@
 				BDFE9F52296EC9D100071C5E /* Strings+Generated.swift in Sources */,
 				BD2463CE295C7C2500B9771F /* AddListViewController.swift in Sources */,
 				BD246421296618AB00B9771F /* IconsCollectionViewCell.swift in Sources */,
-				BDFE9F58296F432500071C5E /* CategoryViewModel.swift in Sources */,
 				BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */,
 				BD2463DA2963653000B9771F /* Task.swift in Sources */,
 				BD2463CC295B7BBE00B9771F /* CollectionViewCell.swift in Sources */,
