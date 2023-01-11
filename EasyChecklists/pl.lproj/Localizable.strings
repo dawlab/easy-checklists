@@ -1,0 +1,51 @@
+//TABBAR VIEW
+// TabBar labels
+"AllChecklistsTabBarLabel" = "Moje listy";
+"SettingsTabBarLabel" = "Ustawienia";
+//TabBar icons
+"ChecklistsIcon" = "checklist";
+"CheckListsIconSelected" = "checklist.checked";
+"SettingsIcon" = "gearshape";
+"SettingsIconSelected" = "gearshape.fill";
+
+//ALL LISTS VIEW
+//All lists labels
+"AllListsViewTitle" = "Wszystkie listy";
+//All lists icons
+"AddListIcon" = "plus";
+"CategoryDefaultIcon" = "doc";
+
+//ADD LIST VIEW
+//Add list labels
+"AddListViewTitle" = "Dodaj nową listę";
+"CancelButtonTitle" = "Anuluj";
+"DoneButtonTitle" = "Zapisz";
+"AddListTextFieldPlaceholder" = "np. lista zakupów";
+"CategoryDefaultColor" = "blue";
+"CategoryDefaultName" = "Default";
+"AddListPickColorLabel" = "Wybierz kolor listy";
+"AddListPickIconLabel" = "Wybierz ikonę listy";
+"CategoryNameAlert" = "Proszę wpisz nazwę kategorii";
+//Add list icons
+
+//ITEMS VIEW
+//Items view labels
+"AddItemTextFieldPlaceholder" = "Wpisz tutaj nazwę..";
+"ItemsViewEditButton" = "Edytuj";
+"EditItemAlertTitle" = "Edytuj";
+"EditItemAlertMessage" = "Zaktualizuj nazwę elementu";
+"EditItemUpdateButton" = "Zapisz";
+"EditItemCancelButton" = "Anuluj";
+"EditItemTextFieldPlaceholder" = "Zaktualizuj element";
+"TapToReorderCellsButtonText" = "Edytuj";
+"TapToSaveCellsOrder" = "Gotowe";
+"EnterItemTitleMessage" = "Wpisz tutaj nazwę..";
+
+//Items view icons
+
+//SETTINGS VIEW
+//Settings view labels
+"SettingsViewTitle" = "Settings";
+"AboutChecklists" = "Listy kontrolne to proste, ale skuteczne narzędzie, które może pomóc w zwiększeniu produktywności i wydajności.\nPomagają ustalić priorytety w pracy i ułatwić delegowanie zadań innym.\nPonadto listy kontrolne mogą służyć jako zapis Twoich postępów i osiągnięć, a także może służyć do identyfikacji obszarów wymagających poprawy.";
+//Settings view icons
+

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import L10n_swift
 
 class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -41,15 +42,15 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.delegate = self
         collectionView.backgroundColor = .systemGray6
         view.backgroundColor = .systemGray6
-        navigationItem.title = "My checklists"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(tapAddListButton(sender: )))
+        navigationItem.title = L10n.allListsViewTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: L10n.addListIcon), style: .plain, target: self, action: #selector(tapAddListButton(sender: )))
         
         if traitCollection.userInterfaceStyle == .light {
             navigationController?.navigationBar.tintColor = .black
         } else {
             navigationController?.navigationBar.tintColor = .white
         }
-        layout()
+        setupLayout()
     }
     
     @objc func tapAddListButton(sender: UIButton) {
@@ -61,7 +62,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         present(navigationController, animated: true)
     }
     
-    private func layout() {
+    private func setupLayout() {
         view.addSubview(box)
         
         box.snp.makeConstraints { make -> Void in
@@ -86,34 +87,18 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.categoryName.text = checklists?[indexPath.row].name
         
-        let colors: [String: UIColor] = [
-            "red": .systemRed,
-            "orange": .systemOrange,
-            "yellow": .systemYellow,
-            "green": .systemGreen,
-            "mint": .systemMint,
-            "teal": .systemTeal,
-            "cyan": .systemCyan,
-            "blue": .systemBlue,
-            "indigo": .systemIndigo,
-            "purple": .systemPurple,
-            "pink": .systemPink,
-            "brown": .systemBrown
-        ]
-        
         if let name = checklists?[indexPath.row].color {
-            if let color = colors[name] {
+            if let color = Color().colors[name] {
                 cell.rectangle.backgroundColor = color
             }
         }
         let icon = checklists?[indexPath.row].icon
-        cell.imgView.image = UIImage(systemName: icon ?? "doc", withConfiguration: largeConfig)
+        cell.imgView.image = UIImage(systemName: icon ?? L10n.categoryDefaultIcon, withConfiguration: largeConfig)
         
         return cell
     }

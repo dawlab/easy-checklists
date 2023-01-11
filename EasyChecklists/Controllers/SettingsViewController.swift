@@ -22,17 +22,11 @@ class SettingsViewController: UIViewController {
         desc.lineBreakMode = .byWordWrapping
         desc.font.withSize(18)
         desc.sizeToFit()
-        desc.text = """
-        Checklists are a simple but effective tool that can help you to be more productive and efficient.
-        
-        They can help you to prioritize your work, and make it easier to delegate tasks to others.
-        
-        In addition, checklists can serve as a record of your progress and accomplishments, and can be used to identify areas for improvement.
-        """
+        desc.text = L10n.aboutChecklists
         return desc
     }()
     
-    private func layout() {
+    private func setupLayout() {
         view.addSubview(box)
         
         box.snp.makeConstraints { make -> Void in
@@ -56,8 +50,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemGray6
-        navigationItem.title = "Settings"
-        layout()
+        navigationItem.title = L10n.settingsViewTitle
+        setupLayout()
     }
 
     /*

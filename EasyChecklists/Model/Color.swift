@@ -1,14 +1,14 @@
 //
-//  Colors.swift
+//  Color.swift
 //  EasyChecklists
 //
-//  Created by Dawid Łabno on 04/01/2023.
+//  Created by Dawid Łabno on 11/01/2023.
 //
 
 import Foundation
 import UIKit
 
-struct Colors {
+struct Color {
     let colors: [String: UIColor] = [
         "red": .systemRed,
         "orange": .systemOrange,

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import L10n_swift
 
 class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -21,29 +22,15 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    let colors: [String: UIColor] = [
-        "red": .systemRed,
-        "orange": .systemOrange,
-        "yellow": .systemYellow,
-        "green": .systemGreen,
-        "mint": .systemMint,
-        "teal": .systemTeal,
-        "cyan": .systemCyan,
-        "blue": .systemBlue,
-        "indigo": .systemIndigo,
-        "purple": .systemPurple,
-        "pink": .systemPink,
-        "brown": .systemBrown
-    ]
-    
     let customView = CustomView()
     var changedTextField: UITextField?
+    private let color = Color()
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.textColor = .black
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Type task title here..",
+            string: L10n.addItemTextFieldPlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
         )
         textField.backgroundColor = .white
@@ -73,19 +60,18 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         navigationItem.title = selectedCategory?.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tapEditButton(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.itemsViewEditButton, style: .plain, target: self, action: #selector(tapEditButton(sender: )))
         navigationItem.rightBarButtonItem?.tintColor = .white
 
-        if let name = selectedCategory?.color {
-            let color = colors[name]
-            box.backgroundColor = color
+        if let colorName = selectedCategory?.color {
+            box.backgroundColor = color.colors[colorName]
         } else {
             box.backgroundColor = .systemGray6
         }
-        layout()
+        setupLayout()
     }
 
-    private func layout() {
+    private func setupLayout() {
         view.addSubview(box)
 
         box.snp.makeConstraints { make -> Void in
@@ -127,7 +113,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.taskTitle.numberOfLines = 0
         cell.taskTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
         if let currentCategory = selectedCategory {
-            cell.completed.tintColor = colors[currentCategory.color]
+            cell.completed.tintColor = color.colors[currentCategory.color]
         }
 
         let backgroundView = UIView()
@@ -157,9 +143,9 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.deselectRow(at: indexPath, animated: true)
 
         let selectedItem = checklistItems?[indexPath.row].title
-        let alert = UIAlertController(title: "Edit", message: "Edit item", preferredStyle: .alert)
+        let alert = UIAlertController(title: L10n.editItemAlertTitle, message: L10n.editItemAlertMessage, preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Update",
+        alert.addAction(UIAlertAction(title: L10n.editItemUpdateButton,
                                       style: UIAlertAction.Style.default,
                                       handler: {_ in
             let updatedItem = self.changedTextField?.text
@@ -173,11 +159,11 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.reloadData()
         }))
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: L10n.editItemCancelButton, style: UIAlertAction.Style.default, handler: nil))
 
         alert.addTextField { textField in
             self.changedTextField = textField
-            self.changedTextField?.placeholder = "Please update item"
+            self.changedTextField?.placeholder = L10n.editItemTextFieldPlaceholder
             self.changedTextField?.text = selectedItem
 
         }
@@ -245,7 +231,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @objc func tapEditButton(sender: UIBarButtonItem) {
         tableView.isEditing = !tableView.isEditing
-        sender.title = (tableView.isEditing) ? "Done" : "Edit"
+        sender.title = (tableView.isEditing) ? L10n.tapToSaveCellsOrder : L10n.tapToReorderCellsButtonText
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -272,7 +258,7 @@ class ItemsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.placeholder = "Type task title here.."
+        textField.placeholder = L10n.enterItemTitleMessage
         textField.endEditing(true)
         return true
     }

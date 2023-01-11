@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import L10n_swift
 
 class AddListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
@@ -22,55 +23,15 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     let collectionViewAIdentifier = "CollectionViewACell"
     
     let mediumConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .medium)
-   
-    let colorArray = [
-        "red",
-        "orange",
-        "yellow",
-        "green",
-        "mint",
-        "teal",
-        "cyan",
-        "blue",
-        "indigo",
-        "purple",
-        "pink",
-        "brown"
-    ]
-    
-    let colors: [String: UIColor] = [
-        "red": .systemRed,
-        "orange": .systemOrange,
-        "yellow": .systemYellow,
-        "green": .systemGreen,
-        "mint": .systemMint,
-        "teal": .systemTeal,
-        "cyan": .systemCyan,
-        "blue": .systemBlue,
-        "indigo": .systemIndigo,
-        "purple": .systemPurple,
-        "pink": .systemPink,
-        "brown": .systemBrown
-    ]
-    
-    let iconArray = [
-        "book",
-        "film",
-        "cart",
-        "doc",
-        "music.note.list",
-        "house",
-        "swift",
-        "square.and.pencil",
-        "link",
-        "calendar"
-    ]
+    private var color = Color()
+    private var icon = Icon()
+
     // swiftlint:disable:next force_try
     let realm = try! Realm()
     var checklists: Results<Checklist>!
-    var color = "blue"
-    var icon = "doc"
-    var categoryName = "Default"
+    var categoryColor = L10n.categoryDefaultColor
+    var categoryIcon = L10n.categoryDefaultIcon
+    var categoryName = L10n.categoryDefaultName
     
     private lazy var box: UIView = {
         let box = UIView()
@@ -80,7 +41,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "e.g. Shopping list"
+        textField.placeholder = L10n.addListTextFieldPlaceholder
         textField.delegate = self
         return textField
     }()
@@ -95,25 +56,25 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     let imgView: UIImageView = {
         let imgView = UIImageView()
         imgView.tintColor = .systemGray6
-        imgView.image = UIImage(systemName: "doc")
+        imgView.image = UIImage(systemName: L10n.categoryDefaultIcon)
         return imgView
     }()
     
     private lazy var colorLabel: UILabel = {
         let colorLabel = UILabel()
-        colorLabel.text = "Pick a checklist color"
+        colorLabel.text = L10n.addListPickColorLabel
         colorLabel.textColor = .systemBlue
         return colorLabel
     }()
     
     private lazy var iconLabel: UILabel = {
         let iconLabel = UILabel()
-        iconLabel.text = "Pick a checklist icon"
+        iconLabel.text = L10n.addListPickIconLabel
         iconLabel.textColor = .systemBlue
         return iconLabel
     }()
     
-    private func layout() {
+    private func setupLayout() {
         view.addSubview(box)
         
         box.snp.makeConstraints { make in
@@ -204,10 +165,10 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionViewB?.delegate = self
         collectionViewB?.backgroundColor = .systemGray6
         
-        navigationItem.title = "Add new checklist"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tapToDismiss(sender: )))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tapToAddCategory(sender: )))
-        layout()
+        navigationItem.title = L10n.addListViewTitle
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.cancelButtonTitle, style: .plain, target: self, action: #selector(tapToDismiss(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.doneButtonTitle, style: .plain, target: self, action: #selector(tapToAddCategory(sender: )))
+        setupLayout()
     }
     
     @objc func tapToDismiss(sender: UIButton!) {
@@ -217,8 +178,8 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     @objc func tapToAddCategory(sender: UIButton!) {
         let newCategory = Checklist()
         newCategory.name = textField.text!
-        newCategory.color = color
-        newCategory.icon = icon
+        newCategory.color = categoryColor
+        newCategory.icon = categoryIcon
         if textField.text != "" {
             self.save(category: newCategory)
             dismiss(animated: true, completion: nil)
@@ -229,37 +190,35 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionViewA {
-            return colorArray.count
+            return Array(color.colors.keys).count
         } else {
-            return iconArray.count
+            return icon.icons.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.collectionViewA {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewAIdentifier, for: indexPath)
-        
-            let name = colorArray[indexPath.row]
-            let color = colors[name]
-            cell.backgroundColor = color
             
+            cell.backgroundColor = Array(color.colors.values)[indexPath.row]
+               
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconsCollectionViewCell.identifier, for: indexPath) as? IconsCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.imgView.image = UIImage(systemName: iconArray[indexPath.row], withConfiguration: mediumConfig)
+            cell.imgView.image = UIImage(systemName: icon.icons[indexPath.row], withConfiguration: mediumConfig)
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.collectionViewA {
-            color = colorArray[indexPath.row]
-            preview.backgroundColor = colors[color]
+            categoryColor = Array(color.colors.keys)[indexPath.row]
+            preview.backgroundColor = Array(color.colors.values)[indexPath.row]
         } else {
-            icon = iconArray[indexPath.row]
-            imgView.image = UIImage(systemName: icon)
+            categoryIcon = icon.icons[indexPath.row]
+            imgView.image = UIImage(systemName: categoryIcon)
         }
     }
     

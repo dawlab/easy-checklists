@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "l10n-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Decybel07/L10n-swift.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "813aa7229b7e32e2cc579055bdc6ac2195c72ff9"
+      }
+    },
+    {
       "identity" : "realm-core",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",

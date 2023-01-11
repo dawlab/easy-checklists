@@ -1,0 +1,50 @@
+//TABBAR VIEW
+// TabBar labels
+"AllChecklistsTabBarLabel" = "All Checklists";
+"SettingsTabBarLabel" = "Settings";
+//TabBar icons
+"ChecklistsIcon" = "checklist";
+"CheckListsIconSelected" = "checklist.checked";
+"SettingsIcon" = "gearshape";
+"SettingsIconSelected" = "gearshape.fill";
+
+//ALL LISTS VIEW
+//All lists labels
+"AllListsViewTitle" = "My checklists";
+//All lists icons
+"AddListIcon" = "plus";
+"CategoryDefaultIcon" = "doc";
+
+//ADD LIST VIEW
+//Add list labels
+"AddListViewTitle" = "Add new checklist";
+"CancelButtonTitle" = "Cancel";
+"DoneButtonTitle" = "Done";
+"AddListTextFieldPlaceholder" = "e.g. Shopping list";
+"CategoryDefaultColor" = "blue";
+"CategoryDefaultName" = "Default";
+"AddListPickColorLabel" = "Pick a checklist color";
+"AddListPickIconLabel" = "Pick a checklist icon";
+"CategoryNameAlert" = "Please type a category name";
+//Add list icons
+
+//ITEMS VIEW
+//Items view labels
+"AddItemTextFieldPlaceholder" = "Enter a title here..";
+"ItemsViewEditButton" = "Edit";
+"EditItemAlertTitle" = "Edit";
+"EditItemAlertMessage" = "Edit item";
+"EditItemUpdateButton" = "Save";
+"EditItemCancelButton" = "Cancel";
+"EditItemTextFieldPlaceholder" = "Please update item";
+"TapToReorderCellsButtonText" = "Edit";
+"TapToSaveCellsOrder" = "Done";
+"EnterItemTitleMessage" = "Enter a title here..";
+
+//Items view icons
+
+//SETTINGS VIEW
+//Settings view labels
+"SettingsViewTitle" = "Settings";
+"AboutChecklists" = "Checklists are a simple but effective tool that can help you to be more productive and efficient.\nThey can help you to prioritize your work, and make it easier to delegate tasks to others.\nIn addition, checklists can serve as a record of your progress and accomplishments, and can be used to identify areas for improvement.";
+//Settings view icons
