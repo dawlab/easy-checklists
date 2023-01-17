@@ -1,4 +1,4 @@
-# easy-checklists
+# EasyChecklists
 App with checklists. You can create many lists with tasks, goals, ingredients etc. 
 
 ## What have i learned in this project?
