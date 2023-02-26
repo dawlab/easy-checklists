@@ -7,7 +7,7 @@ Simple app with checklists using programmaticaly UI.
 - The data is saved in the Realm database
 
 # Code architecture
-- MVC (in progress - I work on it) 
+- MVC
 
 # Technologies Used
 - Swift 
