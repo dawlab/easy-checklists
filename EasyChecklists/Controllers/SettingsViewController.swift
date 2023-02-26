@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-class SettingsViewController: UIViewController {
-    
+final class SettingsViewController: UIViewController {
     private lazy var box: UIView = {
         let box = UIView()
         box.backgroundColor = .systemGray6
@@ -53,15 +52,4 @@ class SettingsViewController: UIViewController {
         navigationItem.title = L10n.settingsViewTitle
         setupLayout()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

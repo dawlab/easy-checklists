@@ -8,14 +8,12 @@
 import UIKit
 import SnapKit
 
-class CustomTableViewCell: UITableViewCell {
-    static let identifier = "CustomTableViewCell"
-    
-    public let completed: UIButton = {
+final class CustomTableViewCell: UITableViewCell {
+    let completed: UIButton = {
         let completed = UIButton()
-        completed.setImage(UIImage(systemName: "circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0)), for: .normal)
         
-        completed.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0)), for: .selected)
+        completed.setImage(getImage(named: "circle"), for: .normal)
+        completed.setImage(getImage(named: "checkmark.circle.fill"), for: .selected)
         
         return completed
     }()
@@ -26,23 +24,33 @@ class CustomTableViewCell: UITableViewCell {
         return taskTitle
     }()
     
-    let delete: UIButton = {
+    let deleteButton: UIButton = {
         let delete = UIButton()
         
-        delete.setImage(UIImage(systemName: "multiply.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0))?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .normal)
-        
-        delete.setImage(UIImage(systemName: "multiply.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0))?.withTintColor(.red, renderingMode: .alwaysOriginal), for: .selected)
+        delete.setImage(getImage(named: "multiply.circle")?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .normal)
+        delete.setImage(getImage(named: "multiply.circle.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal), for: .selected)
         
         return delete
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .systemBackground
-        layout()
+        setupLayout()
     }
     
-    private func layout() {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        taskTitle.text = nil
+    }
+    
+    private func setupLayout() {
         contentView.addSubview(completed)
         
         completed.snp.makeConstraints { make in
@@ -59,22 +67,17 @@ class CustomTableViewCell: UITableViewCell {
             make.left.equalTo(completed.snp.right).offset(-20)
         }
         
-        contentView.addSubview(delete)
+        contentView.addSubview(deleteButton)
         
-        delete.snp.makeConstraints { make in
+        deleteButton.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.height.equalTo(50)
             make.right.equalTo(contentView).offset(20)
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        super
-            .prepareForReuse()
-        taskTitle.text = nil
+    private static func getImage(named systemName: String) -> UIImage? {
+        UIImage(systemName: systemName,
+                withConfiguration: UIImage.SymbolConfiguration(pointSize: 20.0))
     }
 }

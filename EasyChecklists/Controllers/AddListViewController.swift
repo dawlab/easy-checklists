@@ -10,22 +10,17 @@ import SnapKit
 import RealmSwift
 import L10n_swift
 
-class AddListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
-    
+final class AddListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     var onViewWillDisappear: (() -> ())?
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            onViewWillDisappear?()
-        }
     
     private var collectionViewA: UICollectionView?
     private var collectionViewB: UICollectionView?
-    let collectionViewAIdentifier = "CollectionViewACell"
     
     let mediumConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .medium)
+    
     private var color = Color()
     private var icon = Icon()
-
+    
     // swiftlint:disable:next force_try
     let realm = try! Realm()
     var checklists: Results<Checklist>!
@@ -41,36 +36,46 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
+        
         textField.placeholder = L10n.addListTextFieldPlaceholder
         textField.delegate = self
+        
         return textField
     }()
     
     var preview: UIView = {
         var preview = UIView()
+        
         preview.layer.cornerRadius = 5
         preview.backgroundColor = UIColor.systemBlue
+        
         return preview
     }()
     
     let imgView: UIImageView = {
         let imgView = UIImageView()
+        
         imgView.tintColor = .systemGray6
         imgView.image = UIImage(systemName: L10n.categoryDefaultIcon)
+        
         return imgView
     }()
     
     private lazy var colorLabel: UILabel = {
         let colorLabel = UILabel()
+        
         colorLabel.text = L10n.addListPickColorLabel
         colorLabel.textColor = .systemBlue
+        
         return colorLabel
     }()
     
     private lazy var iconLabel: UILabel = {
         let iconLabel = UILabel()
+        
         iconLabel.text = L10n.addListPickIconLabel
         iconLabel.textColor = .systemBlue
+        
         return iconLabel
     }()
     
@@ -143,14 +148,16 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemGray6
         
         let lt = UICollectionViewFlowLayout()
         lt.scrollDirection = .vertical
         lt.itemSize = CGSize(width: 40, height: 40)
-        collectionViewA = UICollectionView(frame: .zero, collectionViewLayout: lt)
+        collectionViewA = UICollectionView(frame: .zero,
+                                           collectionViewLayout: lt)
         
-        collectionViewA?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: collectionViewAIdentifier)
+        collectionViewA?.register(UICollectionViewCell.self)
         collectionViewA?.dataSource = self
         collectionViewA?.delegate = self
         collectionViewA?.backgroundColor = .systemGray6
@@ -158,17 +165,30 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         let lt2 = UICollectionViewFlowLayout()
         lt2.scrollDirection = .vertical
         lt2.itemSize = CGSize(width: 40, height: 40)
-        collectionViewB = UICollectionView(frame: .zero, collectionViewLayout: lt2)
+        collectionViewB = UICollectionView(frame: .zero,
+                                           collectionViewLayout: lt2)
         
-        collectionViewB?.register(IconsCollectionViewCell.self, forCellWithReuseIdentifier: IconsCollectionViewCell.identifier)
+        collectionViewB?.register(IconsCollectionViewCell.self)
         collectionViewB?.dataSource = self
         collectionViewB?.delegate = self
         collectionViewB?.backgroundColor = .systemGray6
         
         navigationItem.title = L10n.addListViewTitle
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.cancelButtonTitle, style: .plain, target: self, action: #selector(tapToDismiss(sender: )))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.doneButtonTitle, style: .plain, target: self, action: #selector(tapToAddCategory(sender: )))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.cancelButtonTitle,
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(tapToDismiss(sender: )))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: L10n.doneButtonTitle,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(tapToAddCategory(sender: )))
         setupLayout()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        onViewWillDisappear?()
     }
     
     @objc func tapToDismiss(sender: UIButton!) {
@@ -188,7 +208,10 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         if collectionView == self.collectionViewA {
             return Array(color.colors.keys).count
         } else {
@@ -196,23 +219,31 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         if collectionView == self.collectionViewA {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionViewAIdentifier, for: indexPath)
-            
+            guard let cell = collectionView.dequeue(cellForItemAt: indexPath) else {
+                return UICollectionViewCell()
+            }
             cell.backgroundColor = Array(color.colors.values)[indexPath.row]
-               
+            
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IconsCollectionViewCell.identifier, for: indexPath) as? IconsCollectionViewCell else {
+            guard let cell: IconsCollectionViewCell = collectionView.dequeue(cellForItemAt: indexPath) else {
                 return UICollectionViewCell()
             }
             cell.imgView.image = UIImage(systemName: icon.icons[indexPath.row], withConfiguration: mediumConfig)
+            
             return cell
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         if collectionView == self.collectionViewA {
             categoryColor = Array(color.colors.keys)[indexPath.row]
             preview.backgroundColor = Array(color.colors.values)[indexPath.row]
@@ -224,6 +255,7 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
+        
         return true
     }
     
@@ -235,7 +267,11 @@ class AddListViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         let MAX_LENGTH = 48
         let updatedString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         return updatedString.count <= MAX_LENGTH

@@ -13,6 +13,8 @@
 		BD2463DC2963654400B9771F /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2463DB2963654400B9771F /* Checklist.swift */; };
 		BD246421296618AB00B9771F /* IconsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD246420296618AB00B9771F /* IconsCollectionViewCell.swift */; };
 		BD48199F2948D95B001C8AEF /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD48199E2948D95B001C8AEF /* CustomView.swift */; };
+		BD7F750D29ABBA7900023BA5 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7F750C29ABBA7900023BA5 /* UICollectionView+Ext.swift */; };
+		BD7F750F29ABC29D00023BA5 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7F750E29ABC29D00023BA5 /* UITableView+Ext.swift */; };
 		BD970BAD29252CD400D2F23A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAC29252CD400D2F23A /* AppDelegate.swift */; };
 		BD970BAF29252CD400D2F23A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BAE29252CD400D2F23A /* SceneDelegate.swift */; };
 		BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD970BB029252CD400D2F23A /* ItemsViewController.swift */; };
@@ -41,6 +43,8 @@
 		BD2463DB2963654400B9771F /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		BD246420296618AB00B9771F /* IconsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD48199E2948D95B001C8AEF /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		BD7F750C29ABBA7900023BA5 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
+		BD7F750E29ABC29D00023BA5 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		BD970BA929252CD400D2F23A /* EasyChecklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyChecklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD970BAC29252CD400D2F23A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD970BAE29252CD400D2F23A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD7F750B29ABBA5500023BA5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BD7F750C29ABBA7900023BA5 /* UICollectionView+Ext.swift */,
+				BD7F750E29ABC29D00023BA5 /* UITableView+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BD970BA029252CD400D2F23A = {
 			isa = PBXGroup;
 			children = (
@@ -97,11 +110,12 @@
 			isa = PBXGroup;
 			children = (
 				BDFE9F48296EC23800071C5E /* swiftgen.yml */,
-				BD970BFB292EBB4200D2F23A /* Model */,
 				BD970BAC29252CD400D2F23A /* AppDelegate.swift */,
 				BD970BAE29252CD400D2F23A /* SceneDelegate.swift */,
+				BD970BFB292EBB4200D2F23A /* Model */,
 				BD970C2D293299F100D2F23A /* View */,
 				BD970BFC292EBB4C00D2F23A /* Controllers */,
+				BD7F750B29ABBA5500023BA5 /* Extensions */,
 				BD970BFD292EBB8100D2F23A /* Supporting files */,
 				BD970BBD29252CD600D2F23A /* Info.plist */,
 				BDFE9F51296EC9D100071C5E /* Strings+Generated.swift */,
@@ -262,6 +276,8 @@
 				BDBA896D29492FB100B6A625 /* CategoryViewController.swift in Sources */,
 				BD970C2C293299EC00D2F23A /* CustomTableViewCell.swift in Sources */,
 				BD970BB129252CD400D2F23A /* ItemsViewController.swift in Sources */,
+				BD7F750F29ABC29D00023BA5 /* UITableView+Ext.swift in Sources */,
+				BD7F750D29ABBA7900023BA5 /* UICollectionView+Ext.swift in Sources */,
 				BDBA897129492FFD00B6A625 /* TabBarViewController.swift in Sources */,
 				BDFE9F56296F04A800071C5E /* Icon.swift in Sources */,
 				BDFE9F54296EF2FE00071C5E /* Color.swift in Sources */,
